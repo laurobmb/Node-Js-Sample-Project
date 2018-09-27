@@ -1,0 +1,13 @@
+{
+  "name": "docker_web_app",
+  "version": "1.0.0",
+  "description": "Example of Node.js on Docker and demonstrating how to dockerize a node application",
+  "author": "Siva Kethineni <sivadevops2006@gmail.com>",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.13.3"
+  }
+}
