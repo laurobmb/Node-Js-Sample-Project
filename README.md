@@ -10,7 +10,7 @@ cd Node-Js-Sample-App
 
 docker build -t goldentech/node-app .
 
-docker run -p 8080:8080 -d <user-name>/<image-name>
+docker run -p 8080:8080 -d user-name/image-name
   
 docker run -p 8080:8080 -d goldentech/node-app
 
