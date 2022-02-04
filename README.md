@@ -1,29 +1,8 @@
-Building own Node.js image
+# Building own Node.js image
 
-Goal: The purpose of this image is to Create Node js Application
+	podman build -t node-app:latest .
+	podman run -it --rm --name nodejs -p 8080:8080 node-app:latest
 
-Steps to building your own image
-
-Be in the directory Node-Js-Sample-App
-
-cd Node-Js-Sample-App
-
-docker build -t goldentech/node-app .
-
-docker run -p 8080:8080 -d user-name/image-name
-  
-docker run -p 8080:8080 -d goldentech/node-app
-
-Saving the image to docker hub
-
-Register for an account on hub.docker.com
-
-In server machine
-
-# docker login
-
-# docker images
-
-# docker push docker-user_id/image-name
-
-# docker push goldentech/node-app
+# Deploy OCP
+	
+	oc new-app --name node --labels app=nodejs --strategy=source https://github.com/laurobmb/Node-Js-Sample-Project.git
