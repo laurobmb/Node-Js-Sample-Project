@@ -1,0 +1,77 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: node-js-sample-project
+  labels:
+    name: node-js-sample-project
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: node-js-sample-project
+  namespace: node-js-sample-project
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: node-js-sample-project
+  template:
+    metadata:
+      labels:
+        app: node-js-sample-project
+    spec:
+      containers:
+      - name: node-js-sample-project-container      
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        image: quay.io/lagomes/node-js-sample-project:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+  minReadySeconds: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: node-js-sample-project-service
+  namespace: node-js-sample-project  
+  labels:
+    app: node-js-sample-project
+spec:
+  type: ClusterIP
+  selector:
+    app: node-js-sample-project  
+  ports:
+  - name: http
+    port: 8080
+    targetPort: 8000
+    protocol: TCP
+
+---
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: node-js-sample-project-router
+  namespace: node-js-sample-project
+  labels:
+    app: node-js-sample-project
+spec:
+  host: node-js-sample-project.apps.lagomes.rhbr-lab.com
+  to:
+    kind: Service
+    name: node-js-sample-project-service
+    weight: 100
+  port:
+    targetPort: 8080
+  wildcardPolicy: None
