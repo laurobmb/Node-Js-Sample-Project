@@ -16,6 +16,15 @@ app.get('/openshift', (req, res) => {
   res.send('Teste para Opeshift 4.8\n');
 });
 
+app.get('/health', (req, res) => {
+  const data = {
+    uptime: process.uptime(),
+    message: 'Ok',
+    date: new Date()
+  }
+  res.status(200).send('Ok');
+});
+
 app.use('/', function(req,res){
   res.sendFile(path.join(__dirname+'/index.html'));
   //__dirname : It will resolve to your project folder.
