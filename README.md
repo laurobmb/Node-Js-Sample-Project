@@ -12,7 +12,7 @@
 	
 	oc create route edge node-tls --service node
 
-    oc set resources deployment node --limits=cpu=400m,memory=512Mi --requests=cpu=100m,memory=256Mi
+    oc set resources deployment node --limits=cpu=200m,memory=128Mi --requests=cpu=100m,memory=64Mi
     
 	oc set probe deployment/node --readiness --initial-delay-seconds=10 --timeout-seconds=30 --get-url=http://:8080/health
     
