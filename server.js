@@ -10,12 +10,13 @@ const HOST = '0.0.0.0';
 const app = express();
 app.use(express.json());
 app.use(express.static("express"));
+app.use('/img', express.static('img'));
 
-app.get('/', (req, res) => {
+app.get('/openshift', (req, res) => {
   res.send('Teste para Opeshift 4.8\n');
 });
 
-app.use('/page1', function(req,res){
+app.use('/', function(req,res){
   res.sendFile(path.join(__dirname+'/index.html'));
   //__dirname : It will resolve to your project folder.
 });
