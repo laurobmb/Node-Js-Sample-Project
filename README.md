@@ -26,3 +26,10 @@
 ## Volumes
 
 	podman run -it --rm --name node -v /your/files:/usr/src/app/data:Z -p8080:8080 node:v1 
+	
+	podman run -it --rm --name node -p8080:8080 node:v1 
+	podman cp yourfile.txt node:/usr/src/app/data
+
+	oc set volume deployment/node --add --mount-path=/usr/src/app/data --name=node-volume-persistent -t pvc --claim-name=node-pvc
+	oc rsync  ./local/dir/filename <pod-name>:/remote/dir/
+
