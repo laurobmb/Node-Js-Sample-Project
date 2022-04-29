@@ -22,3 +22,7 @@
 
 ## Delete app 
 	oc delete all -l app=nodejs
+
+## Volumes
+
+	podman run -it --rm --name node -v /your/files:/usr/src/app/data:Z -p8080:8080 node:v1 

@@ -1,6 +1,7 @@
 const http = require('http');
 const express = require('express');
 const path = require('path');
+var serveIndex = require('serve-index')
 
 // Constants
 const PORT = 8080;
@@ -15,6 +16,9 @@ app.use('/img', express.static('img'));
 app.get('/openshift', (req, res) => {
   res.send('Teste para Opeshift 4.8\n');
 });
+
+app.use('/files', express.static('data/'), 
+serveIndex('data/', {'icons': true}))
 
 app.get('/health', (req, res) => {
   const data = {
