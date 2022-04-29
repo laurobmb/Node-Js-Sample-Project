@@ -1,4 +1,5 @@
 # Building own Node.js image
+
 	podman build -t node-app:latest .
 	
 	podman run -it --rm --name nodejs -p 8080:8080 node-app:latest
@@ -23,13 +24,16 @@
 ## Delete app 
 	oc delete all -l app=nodejs
 
-## Volumes
+# Set Volumes o container
 
-	podman run -it --rm --name node -v /your/files:/usr/src/app/data:Z -p8080:8080 node:v1 
+### Podman 
+	$ podman run -it --rm --name node -v /your/files:/usr/src/app/data:Z -p8080:8080 node:v1 
 	
-	podman run -it --rm --name node -p8080:8080 node:v1 
+	$ podman run -it --rm --name node -p8080:8080 node:v1 
 	podman cp yourfile.txt node:/usr/src/app/data
 
-	oc set volume deployment/node --add --mount-path=/usr/src/app/data --name=node-volume-persistent -t pvc --claim-name=node-pvc
-	oc rsync  ./local/dir/filename <pod-name>:/remote/dir/
+### Openshift
+	$ oc set volume deployment/node --add --mount-path=/usr/src/app/data --name=node-volume-persistent -t pvc --claim-name=node-pvc
+
+	$ oc rsync  ./local/dir/filename <pod-name>:/usr/src/app/data
 
