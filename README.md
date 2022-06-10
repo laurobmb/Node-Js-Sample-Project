@@ -38,7 +38,7 @@ Check file list of container http://127.0.0.1:8080/files
 
 Create node-pvc PVC before set volume of container
 
-	oc set volume deployment/node --add --mount-path=/usr/src/app/data --name=node-volume-persistent -t pvc --claim-name=node-pvc
+	oc -n node set volume deployment/node --add --mount-path=/usr/src/app/data --name=node-volume-persistent -t pvc --claim-name=node-pvc
 
 	oc rsync  ./local/dir/filename <pod-name>:/usr/src/app/data
 
