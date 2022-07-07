@@ -1,7 +1,6 @@
 FROM node
 WORKDIR /usr/src/app
 COPY [ "server.js","index.html","package.json","./" ]
-
 RUN npm install ;\
     mkdir data
 ONBUILD COPY src/ .
