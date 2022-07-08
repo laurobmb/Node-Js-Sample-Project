@@ -19,8 +19,8 @@ app.get('/openshift', (req, res) => {
 });
 
 // upload files
-app.use('/files', express.static('/usr/src/app/data/'), 
-serveIndex('/usr/src/app/data/', {'icons': true}))
+app.use('/files', express.static('/opt/app-root/src/data/'), 
+serveIndex('/opt/app-root/src/data/', {'icons': true}))
 
 // health server
 app.get('/health', (req, res) => {
