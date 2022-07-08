@@ -26,26 +26,26 @@ spec:
     spec:
       containers:
       - name: node-js-sample-project-container
-#        readinessProbe:
-#          failureThreshold: 3
-#          httpGet:
-#            path: /health
-#            port: 8080
-#            scheme: HTTP
-#          initialDelaySeconds: 10
-#          periodSeconds: 10
-#          successThreshold: 1
-#          timeoutSeconds: 30
-#        livenessProbe:
-#          failureThreshold: 3
-#          httpGet:
-#            path: /health
-#            port: 8080
-#            scheme: HTTP
-#          initialDelaySeconds: 10
-#          periodSeconds: 10
-#          successThreshold: 1
-#          timeoutSeconds: 30
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /health
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 30
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /health
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 30
         resources:
           requests:
             memory: "64Mi"
@@ -100,19 +100,25 @@ spec:
     targetPort: 8080
   wildcardPolicy: None
 
-#---
-#apiVersion: autoscaling/v1
-#kind: HorizontalPodAutoscaler
-#metadata:
-#  name: node-horizontal
-#  namespace: node-js-sample-project
-#  labels:
-#    app: node-js-sample-project
-#spec:
-#  maxReplicas: 50
-#  minReplicas: 2
-#  scaleTargetRef:
-#    apiVersion: apps/v1
-#    kind: Deployment
-#    name: node-js-sample-project
-#  targetCPUUtilizationPercentage: 80
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: node-horizontal
+  namespace: node-js-sample-project
+  labels:
+    app: node-js-sample-project  
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: node-js-sample-project
+  minReplicas: 1
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 50
