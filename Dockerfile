@@ -1,4 +1,4 @@
-FROM node
+FROM quay.io/lagomes/nodejs-14:1-79
 WORKDIR /usr/src/app
 COPY [ "server.js","index.html","package.json","./" ]
 
