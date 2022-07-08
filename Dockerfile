@@ -9,4 +9,5 @@ ONBUILD COPY src/ .
 ADD img/openshift.jpg ./img/openshift.jpg
 VOLUME [ "data/" ]
 EXPOSE 8080
+USER 1001
 CMD [ "npm", "start" ]
