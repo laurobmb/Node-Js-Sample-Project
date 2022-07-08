@@ -2,30 +2,30 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: node-js-sample-project
+  name: nodejs
   labels:
-    app: node-js-sample-project
+    app: nodejs
 
 ---
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: node-js-sample-project
-  namespace: node-js-sample-project
+  name: nodejs
+  namespace: nodejs
   labels:
-    app: node-js-sample-project
+    app: nodejs
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: node-js-sample-project
+      app: nodejs
   template:
     metadata:
       labels:
-        app: node-js-sample-project
+        app: nodejs
     spec:
       containers:
-      - name: node-js-sample-project-container
+      - name: nodejs-container
         readinessProbe:
           failureThreshold: 3
           httpGet:
@@ -68,14 +68,14 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: node-js-sample-project-service
-  namespace: node-js-sample-project  
+  name: nodejs-service
+  namespace: nodejs  
   labels:
-    app: node-js-sample-project
+    app: nodejs
 spec:
   type: ClusterIP
   selector:
-    app: node-js-sample-project  
+    app: nodejs  
   ports:
   - name: http
     port: 8080
@@ -86,34 +86,34 @@ spec:
 kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
-  name: node-js-sample-project-router
-  namespace: node-js-sample-project
+  name: nodejs-router
+  namespace: nodejs
   labels:
-    app: node-js-sample-project
+    app: nodejs
 spec:
-  host: node-js-sample-project.apps.lagomes.rhbr-lab.com
+  host: ""
   to:
     kind: Service
-    name: node-js-sample-project-service
+    name: nodejs-service
     weight: 100
   port:
     targetPort: 8080
   wildcardPolicy: None
 
 ---
-apiVersion: autoscaling/v2
+apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
   name: node-horizontal
-  namespace: node-js-sample-project
+  namespace: nodejs
   labels:
-    app: node-js-sample-project  
+    app: nodejs  
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: node-js-sample-project
-  minReplicas: 1
+    name: nodejs
+  minReplicas: 4
   maxReplicas: 10
   metrics:
   - type: Resource
