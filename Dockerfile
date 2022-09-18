@@ -1,4 +1,4 @@
-FROM openshift/nodejs
+FROM quay.io/lagomes/nodejs-14:1-79
 WORKDIR /opt/app-root/src
 USER 1001
 COPY [ "server.js","index.html","package.json","./" ]
