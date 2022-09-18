@@ -7,8 +7,8 @@
 # Deploy OCP
 	oc new-project node --display-name "Simple Node Example"	
 	
-	oc new-app --name node --labels app=nodejs --strategy=source https://github.com/laurobmb/Node-Js-Sample-Project#openshift
-	
+	oc new-app --image-stream="openshift/nodejs" --allow-missing-imagestream-tags --name node --labels app=nodejs --strategy=source https://github.com/laurobmb/Node-Js-Sample-Project#openshift
+
 	oc expose service node
 	
 	oc create route edge node-tls --service node
