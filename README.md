@@ -7,7 +7,7 @@
 # Deploy OCP
 	oc new-project node --display-name "Simple Node Example"	
 	
-	oc new-app --name node --labels app=nodejs --strategy=source https://github.com/laurobmb/Node-Js-Sample-Project.git
+	oc new-app --name node --labels app=nodejs --strategy=source https://github.com/laurobmb/Node-Js-Sample-Project#openshift
 	
 	oc expose service node
 	
