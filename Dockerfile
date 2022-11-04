@@ -1,4 +1,4 @@
-FROM quay.io/lagomes/14-alpine:master
+FROM quay.io/lagomes/14-alpine:v1
 WORKDIR /opt/app-root/src
 COPY [ "server.js","index.html","package.json","./" ]
 RUN mkdir /tmp/data
