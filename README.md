@@ -1,6 +1,6 @@
 # Node project example
 
-## Building own Node.js image
+## Building Node.js image
 * podman build -t node-app:latest .*
 * podman run -it --rm --name nodejs -p 8080:8080 node-app:latest
 ## Deploy OCP
@@ -15,8 +15,6 @@
 * oc set probe deployment/node-source --readiness --initial-delay-seconds=10 --timeout-seconds=30 --get-url=http://:8080/health
 * oc set probe deployment/node-source --liveness --initial-delay-seconds=10 --timeout-seconds=30 --get-url=http://:8080/health
 * oc autoscale deployment/node-source --max 50 --min 3 --cpu-percent=80
-## Delete app 
-* oc delete all -l app=nodejs
 ## Set Volumes o container
 Check file list of container http://127.0.0.1:8080/files
 ## Podman 
@@ -27,4 +25,5 @@ Check file list of container http://127.0.0.1:8080/files
 Create node-pvc PVC before set volume of container
 * oc -n node set volume deployment/node --add --mount-path=/usr/src/app/data --name=node-volume-persistent -t pvc --claim-name=node-pvc
 * oc rsync  ./local/dir/filename <pod-name>:/usr/src/app/data
-
+## Delete app 
+* oc delete all -l app=nodejs
