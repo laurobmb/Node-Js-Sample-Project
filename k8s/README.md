@@ -5,6 +5,3 @@
 * oc annotate ns/node-hml openshift.io/requester=enable
 # Aplicar cluster quota
 * oc apply -f k8s/clusterquota.yaml
-
-
-
