@@ -5,3 +5,6 @@
 * oc annotate ns/node-hml openshift.io/requester=enable
 # Aplicar cluster quota
 * oc apply -f k8s/clusterquota.yaml
+# Deletando app
+* oc delete -k k8s/overlays/node-prd
+* oc delete -k k8s/overlays/node-hml
