@@ -1,0 +1,35 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+bases:
+- ../../base
+
+nameSuffix: -prd
+
+namespace: node-prd
+
+resources:
+- route.yaml
+- hpa.yaml
+- ns.yaml
+- rq-node.yaml
+
+commonLabels:
+  env: node
+
+images:
+- name: nodeimage
+  newName: quay.io/lagomes/node-js-sample-project
+  newTag: 'master'
+
+#patches:
+#- target:
+#    version: v1
+#    group: route.openshift.io
+#    kind: Route
+#    name: nodejs-router
+#  patch: |-
+#    - op: replace
+#      path: /spec/to/name
+#      value: "node-service-prd"
