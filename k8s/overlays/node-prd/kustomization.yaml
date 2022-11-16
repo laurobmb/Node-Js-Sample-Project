@@ -21,7 +21,7 @@ commonLabels:
 images:
 - name: nodeimage
   newName: quay.io/lagomes/node-js-sample-project
-  newTag: 'master'
+  newTag: 'nodejs-redhat'
 
 #patches:
 #- target:
