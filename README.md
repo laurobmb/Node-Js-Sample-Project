@@ -1,5 +1,5 @@
 # Building own Node.js image
-	podman build -t node-app:latest .	
+	buildah build --format docker -t node-app:latest .	
 	podman run -it --rm --name nodejs -p 8080:8080 node-app:latest
 # Deploy OCP
     oc new-project node --display-name "Simple Node Example"	
