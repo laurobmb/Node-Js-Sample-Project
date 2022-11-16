@@ -1,6 +1,6 @@
-FROM quay.io/lagomes/nodejs-14:1-79
-WORKDIR /opt/app-root/src
+FROM registry.access.redhat.com/ubi9/nodejs-16:1-75
 USER 1001
+WORKDIR /opt/app-root/src
 COPY [ "server.js","index.html","package.json","./" ]
 RUN mkdir /tmp/data
 RUN npm install
