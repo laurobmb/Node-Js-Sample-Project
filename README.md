@@ -3,7 +3,12 @@
 * podman run -it --rm --name nodejs -p 8080:8080 node-app:latest
 # Deploy OCP
 * oc new-project node --display-name "Simple Node Example"	
+---
+### Strategy deploy source
 * oc new-app --name node --labels app=nodejs --strategy=source https://github.com/laurobmb/Node-Js-Sample-Project#nodejs-update
+### Strategy deploy docker
+* oc new-app --name node --labels app=nodejs --strategy=docker https://github.com/laurobmb/Node-Js-Sample-Project#nodejs-update
+---
 * oc expose service node
 * oc create route edge node-tls --service node
 * oc set resources deployment node --limits=cpu=200m,memory=128Mi --requests=cpu=100m,memory=64Mi
