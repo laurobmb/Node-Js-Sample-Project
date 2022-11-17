@@ -1,0 +1,22 @@
+# https://docs.openshift.com/container-platform/4.10/applications/quotas/quotas-setting-across-multiple-projects.html
+
+---
+apiVersion: quota.openshift.io/v1
+kind: ClusterResourceQuota
+metadata:
+  name: cluster-resource-quota-default
+spec:
+  quota:
+    hard:
+      pods: "4"
+      requests.cpu: "500m"
+      requests.memory: "512Mi"
+      limits.cpu: "2"
+      limits.memory: "2Gi"
+      thin.storageclass.storage.k8s.io/requests.storage: "0"
+      thin-csi.storageclass.storage.k8s.io/requests.storage: "0"
+      requests.ephemeral-storage: 1Gi
+      limits.ephemeral-storage: 2Gi
+  selector:
+    annotations:
+      openshift.io/requester: enable

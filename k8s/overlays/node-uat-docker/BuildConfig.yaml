@@ -1,0 +1,38 @@
+kind: BuildConfig
+apiVersion: build.openshift.io/v1
+metadata:
+  name: node
+spec:
+  nodeSelector: {}
+  output:
+    to:
+      kind: ImageStreamTag
+      name: 'node-docker:latest'
+  resources: {}
+  successfulBuildsHistoryLimit: 5
+  failedBuildsHistoryLimit: 5
+  strategy:
+    type: Docker                      
+    dockerStrategy:
+      dockerfilePath: Dockerfile
+      from:
+        kind: ImageStreamTag
+        namespace: openshift
+        name: 'nodejs:latest'
+  postCommit: {}
+  source:
+    type: Git
+    git:
+      uri: 'https://github.com/laurobmb/Node-Js-Sample-Project'
+      ref: nodejs-redhat
+  triggers:
+    - type: GitHub
+      github:
+        secret: HYKOATUuqjsaLOleglYe
+    - type: Generic
+      generic:
+        secret: zpWYk7Ch3R53qVY0485S
+    - type: ConfigChange
+    - type: ImageChange
+      imageChange: {}
+  runPolicy: Serial
