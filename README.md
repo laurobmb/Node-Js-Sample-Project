@@ -2,12 +2,12 @@
     buildah build --format docker -t node-app:latest .
     podman run -it --rm --name nodejs -p 8080:8080 node-app:latest
 # Deploy OCP
-    oc new-project node --display-name "Simple Node Example"	
+    oc new-project node --display-name "Simple Node Example"
 ---
 ### Strategy deploy source
     oc new-app --name node --labels app=nodejs --strategy=source https://github.com/laurobmb/Node-Js-Sample-Project#nodejs-update
 ### Strategy deploy source (oc version 4.11)
-    oc new-app --name node --labels app=nodejs registry.access.redhat.com/ubi8/nodejs-16:latest~https://github.com/laurobmb/Node-Js-Sample-Project#nodejs-update
+    oc new-app --name node --labels app=nodejs nodejs:latest~https://github.com/laurobmb/Node-Js-Sample-Project#nodejs-update
 ### Strategy deploy docker
     * oc new-app --name node --labels app=nodejs --strategy=docker https://github.com/laurobmb/Node-Js-Sample-Project#nodejs-update
 ---
