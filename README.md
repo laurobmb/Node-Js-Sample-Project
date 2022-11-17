@@ -17,7 +17,12 @@
 * oc set probe deployment/node --readiness --initial-delay-seconds=10 --timeout-seconds=30 --get-url=http://:8080/health
 * oc set probe deployment/node --liveness --initial-delay-seconds=10 --timeout-seconds=30 --get-url=http://:8080/health
 * oc autoscale deployment node --max 50 --min 3 --cpu-percent=80
-## Delete app 
+# Deploy using yaml
+    oc delete -k k8s/overlays/node-prd
+    oc delete -k k8s/overlays/node-hml
+    oc delete -k k8s/overlays/node-uat
+    oc delete -k k8s/overlays/node-uat-docker
+# Delete app 
 * oc delete all -l app=nodejs
 # Set Volumes o container
 Check file list of container http://127.0.0.1:8080/files
