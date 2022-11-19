@@ -24,7 +24,7 @@ spec:
     type: Git
     git:
       uri: 'https://github.com/laurobmb/Node-Js-Sample-Project'
-      ref: nodejs-redhat
+      ref: nodejs-update
   triggers:
     - type: GitHub
       github:
