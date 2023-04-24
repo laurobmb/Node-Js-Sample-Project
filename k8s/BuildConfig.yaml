@@ -23,7 +23,7 @@ spec:
     type: Git
     git:
       uri: 'https://github.com/laurobmb/Node-Js-Sample-Project'
-      ref: nodejs-redhat
+      ref: nodejs-openshift
   triggers:
     - type: GitHub
       github:
