@@ -15,7 +15,7 @@ app.use('/img', express.static('img'));
 
 // router1
 app.get('/openshift', (req, res) => {
-  res.send('Teste para Opeshift 4.8\n');
+  res.send('Teste para Opeshift 4.12\n');
 });
 
 // upload files
