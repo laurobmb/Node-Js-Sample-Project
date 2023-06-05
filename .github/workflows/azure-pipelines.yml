@@ -2,14 +2,17 @@
 # Build a Node.js Express app and deploy it to Azure as a Linux web app.
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
-
-trigger:
-- master
-
+name: deploy azure
 on:
   push:
     branches:
     - '*'
+  pull_request:
+    branches:
+    - 'develop'
+
+trigger:
+- master
 
 
 variables:
