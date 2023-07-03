@@ -52,8 +52,7 @@ spec:
           claimName: pvc-node-uat
       dnsPolicy: ClusterFirst
       restartPolicy: Always
-      securityContext:
-        allowPrivilegeEscalation: false
+      securityContext: {}
       terminationGracePeriodSeconds: 30
   triggers:
   - type: ConfigChange
