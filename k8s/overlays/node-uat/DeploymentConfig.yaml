@@ -5,7 +5,7 @@ metadata:
     app: nodejs
   name: node
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     app: nodejs
   strategy:
@@ -52,13 +52,8 @@ spec:
           claimName: pvc-node-uat
       dnsPolicy: ClusterFirst
       restartPolicy: Always
-      securityContext: {}
-#        allowPrivilegeEscalation: false
-#        seccompProfile:
-#          type: RuntimeDefault
-#        capabilities:
-#          drop:
-#          - ALL
+      securityContext:
+        allowPrivilegeEscalation: false
       terminationGracePeriodSeconds: 30
   triggers:
   - type: ConfigChange

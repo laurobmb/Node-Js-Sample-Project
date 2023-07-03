@@ -5,7 +5,7 @@ metadata:
   name: rq-node
 spec:
   hard:
-    pods: "5"
+    pods: "10"
     requests.cpu: "1"
     requests.memory: "1Gi"
     limits.cpu: "2"
