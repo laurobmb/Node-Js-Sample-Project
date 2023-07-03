@@ -52,13 +52,13 @@ spec:
           claimName: pvc-node-uat
       dnsPolicy: ClusterFirst
       restartPolicy: Always
-      securityContext:
-        allowPrivilegeEscalation: false
-        seccompProfile:
-          type: RuntimeDefault
-        capabilities:
-          drop:
-          - ALL
+      securityContext: {}
+#        allowPrivilegeEscalation: false
+#        seccompProfile:
+#          type: RuntimeDefault
+#        capabilities:
+#          drop:
+#          - ALL
       terminationGracePeriodSeconds: 30
   triggers:
   - type: ConfigChange
