@@ -16,6 +16,8 @@ resources:
 - DeploymentConfig.yaml
 - Route.yaml
 - Service.yaml
+- ResourceQuota.yaml
+- PersistentVolumeClaim.yaml
 
 commonLabels:
   app: nodejs

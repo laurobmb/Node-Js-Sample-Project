@@ -8,7 +8,13 @@ spec:
     to:
       kind: ImageStreamTag
       name: 'node-uat:latest'
-  resources: {}
+  resources:
+    limits:
+      cpu: "100m"
+      memory: "256Mi"
+    requests:
+      cpu: "100m"
+      memory: "256Mi"
   successfulBuildsHistoryLimit: 5
   failedBuildsHistoryLimit: 5
   strategy:

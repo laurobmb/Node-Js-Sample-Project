@@ -9,7 +9,13 @@ spec:
   selector:
     app: nodejs
   strategy:
-    resources: {}
+    resources:
+      requests:
+        memory: "64Mi"
+        cpu: "100m"
+      limits:
+        cpu: "200m"
+        memory: "128Mi"
     rollingParams:
       intervalSeconds: 1
       maxSurge: 25%
@@ -29,11 +35,25 @@ spec:
         ports:
         - containerPort: 8080
           protocol: TCP
-        resources: {}
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "100m"
+          limits:
+            cpu: "200m"
+            memory: "128Mi"
         terminationMessagePath: /dev/termination-log
+        volumeMounts:
+        - name: node-data
+          mountPath: /opt/app-root/src/data
+      volumes:
+      - name: node-data
+        persistentVolumeClaim:
+          claimName: pvc-node-uat
       dnsPolicy: ClusterFirst
       restartPolicy: Always
-      securityContext: {}
+      securityContext:
+        allowPrivilegeEscalation: false
       terminationGracePeriodSeconds: 30
   triggers:
   - type: ConfigChange
