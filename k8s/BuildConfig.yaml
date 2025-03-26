@@ -27,10 +27,10 @@ spec:
   triggers:
     - type: GitHub
       github:
-        secret: HYKOATUuqjsaLOleglYe
+        secret: yourpass
     - type: Generic
       generic:
-        secret: zpWYk7Ch3R53qVY0485S
+        secret: yourpass
     - type: ConfigChange
     - type: ImageChange
       imageChange: {}
