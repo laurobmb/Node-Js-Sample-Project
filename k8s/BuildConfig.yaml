@@ -7,14 +7,8 @@ spec:
   output:
     to:
       kind: ImageStreamTag
-      name: 'node-uat:v1'
-  resources:
-    limits:
-      cpu: "100m"
-      memory: "256Mi"
-    requests:
-      cpu: "100m"
-      memory: "256Mi"
+      name: 'node-uat:latest'
+  resources: {}
   successfulBuildsHistoryLimit: 5
   failedBuildsHistoryLimit: 5
   strategy:
@@ -29,7 +23,7 @@ spec:
     type: Git
     git:
       uri: 'https://github.com/laurobmb/Node-Js-Sample-Project'
-      ref: nodejs-redhat
+      ref: nodejs-ocp
   triggers:
     - type: GitHub
       github:

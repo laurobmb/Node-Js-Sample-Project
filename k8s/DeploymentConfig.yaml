@@ -9,13 +9,7 @@ spec:
   selector:
     app: nodejs
   strategy:
-    resources:
-      requests:
-        memory: "64Mi"
-        cpu: "100m"
-      limits:
-        cpu: "200m"
-        memory: "128Mi"
+    resources: {}
     rollingParams:
       intervalSeconds: 1
       maxSurge: 25%
@@ -29,28 +23,14 @@ spec:
         app: nodejs
     spec:
       containers:
-      - image: node-uat:v1
+      - image: node-uat:latest
         imagePullPolicy: IfNotPresent
         name: nodejs-app
         ports:
         - containerPort: 8080
           protocol: TCP
-        resources:
-          requests:
-            memory: "64Mi"
-            cpu: "100m"
-          limits:
-            cpu: "200m"
-            memory: "128Mi"
+        resources: {}
         terminationMessagePath: /dev/termination-log
-        terminationMessagePolicy: File	
-        volumeMounts:
-        - name: node-data
-          mountPath: /opt/app-root/src/data
-      volumes:
-      - name: node-data
-        persistentVolumeClaim:
-          claimName: pvc-node-uat
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       securityContext: {}
@@ -63,5 +43,5 @@ spec:
       - nodejs-app
       from:
         kind: ImageStreamTag
-        name: node-uat:v1
+        name: node-uat:latest
     type: ImageChange

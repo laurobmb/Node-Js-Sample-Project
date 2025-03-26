@@ -5,8 +5,10 @@ metadata:
   name: pvc-node
 spec:
   accessModes:
-    - ReadWriteMany
+#    - ReadWriteMany
+    - ReadWriteOnce
   resources:
     requests:
       storage: 1Gi
-  storageClassName: ocs-storagecluster-cephfs
+  # storageClassName: thin-
+  # storageClassName: ocs-storagecluster-cephfs  

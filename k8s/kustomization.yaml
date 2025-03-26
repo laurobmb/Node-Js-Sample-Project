@@ -13,12 +13,11 @@ resources:
 - Namespace.yaml
 - ImageStream.yaml
 - BuildConfig.yaml
-# - DeploymentConfig.yaml
+#- DeploymentConfig.yaml
 - Deployment.yaml
 - Route.yaml
 - Service.yaml
-- ResourceQuota.yaml
-- PersistentVolumeClaim.yaml
+- persistentvolumeclaim.yaml
 
 commonLabels:
   app: nodejs

@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nodejs
+  name: node
+spec:
+  strategy:
+    resources: {}
+    #rollingParams:
+    #  intervalSeconds: 1
+    #  maxSurge: 25%
+    #  maxUnavailable: 25%
+    #  timeoutSeconds: 600
+    #  updatePeriodSeconds: 1
+    type: RollingUpdate
+  replicas: 1
+  selector:
+    app: nodejs
+  template:
+    metadata:
+      labels:
+        app: nodejs
+    spec:
+      containers:
+      - image: image-registry.openshift-image-registry.svc:5000/node-uat/node-uat:v1
+        imagePullPolicy: IfNotPresent
+        name: nodejs-app
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        resources:
+          requests:
+            memory: "100Mi"
+            cpu: 100m
+          limits:
+            memory: "300Mi"        
+            cpu: 500m
+        terminationMessagePath: /dev/termination-log
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+
+

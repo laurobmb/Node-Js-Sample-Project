@@ -1,0 +1,124 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: nodejs
+  labels:
+    app: nodejs
+
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: nodejs
+  namespace: nodejs
+  labels:
+    app: nodejs
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nodejs
+  template:
+    metadata:
+      labels:
+        app: nodejs
+    spec:
+      containers:
+      - name: nodejs-container
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /health
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 30
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /health
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 30
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: 250m
+          limits:
+            memory: "128Mi"
+            cpu: 500m
+        image: quay.io/lagomes/node-js-sample-project:master
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+  minReadySeconds: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nodejs-service
+  namespace: nodejs  
+  labels:
+    app: nodejs
+spec:
+  type: ClusterIP
+  selector:
+    app: nodejs  
+  ports:
+  - name: http
+    port: 8080
+    targetPort: 8080
+    protocol: TCP
+
+---
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: nodejs-router
+  namespace: nodejs
+  labels:
+    app: nodejs
+spec:
+  host: ""
+  to:
+    kind: Service
+    name: nodejs-service
+    weight: 100
+  port:
+    targetPort: 8080
+  wildcardPolicy: None
+
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: node-horizontal
+  namespace: nodejs
+  labels:
+    app: nodejs  
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: nodejs
+  minReplicas: 4
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 50
